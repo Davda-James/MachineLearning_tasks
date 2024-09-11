@@ -25,8 +25,8 @@ def do_interpolation(col,col_name,rows):
 
 def calculate_stats_original_new(original_df):
     df_stats = pd.DataFrame(index=['mean','maximum','minimum','median','std'],columns=df.columns)
-    sys.path.append(os.path.abspath(os.path.join('..',"Assignment1_p1_B23123")))
-    from Assignment1_p1_q1_B23123 import calculate_stats
+    sys.path.append(os.path.abspath(os.path.join('..',"Assignment1_p1")))
+    from Assignment1_p1_q1 import calculate_stats
     for i in cols:
         mean_latest,maxi_latest,mini_latest,median_latest,std_latest=calculate_stats(df[i])
         mean_original,maxi_original,mini_original,median_original,std_original = calculate_stats(original_df[i])
