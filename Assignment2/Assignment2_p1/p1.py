@@ -35,22 +35,23 @@ def find_outliers_and_replace_with_median(attribute_df):
     attribute_df.loc[(attribute_df['SepalWidthCm']>interquartile_range_upperbound) | (attribute_df['SepalWidthCm']<interquartile_range_lowerbound),'SepalWidthCm'] = sorted_col[total_len//2]
 
 
-def pca_algo1(attribute_df):
+def pca_algo1(attribute_df,k):
     attribute_df=attribute_df-attribute_df.mean()
     X=np.array(attribute_df)
     X_transpose = X.T
-    cov_matrix = np.matmul(X_transpose,X)/(X.shape[0] - 1) 
+    cov_matrix = np.matmul(X_transpose,X)/(X.shape[0] - 1)
+    # print(np.linalg.eig(cov_matrix)) 
     eigen_values,eigen_vectors = np.linalg.eig(cov_matrix)
     # print(eigen_values) 
     args_sorted = np.argsort(eigen_values)[::-1]
-    choosen_eigen_values = eigen_values[args_sorted][:2]
-    choosen_eigen_vector=eigen_vectors[:,args_sorted][:,:2]
+    choosen_eigen_values = eigen_values[args_sorted][:k]
+    choosen_eigen_vector=eigen_vectors[:,args_sorted][:,:k]
     X_proj = np.matmul(X,choosen_eigen_vector)
     return (X,X_proj,choosen_eigen_values,choosen_eigen_vector)
 
 def plot_xtrans_with_eigen_vectors(X_trans,choosen_eigen_vectors):
     #  plotting starts here 
-    plt.scatter(X_trans[:,0],X_trans[:,1],alpha=0.8,label='Data Points')
+    plt.scatter(X_trans[:,0],X_trans[:,1],c=y,alpha=0.8,cmap="viridis",label='Data Points')
     origin = np.mean(X_trans,axis=0)
     scaling_factor=2
     for i in range(choosen_eigen_vectors.shape[1]):
@@ -77,7 +78,7 @@ def test(X,X_trans):
 # Get eigenvectors and eigenvalues
     eigenvectors = pca.components_
     eigenvalues = pca.explained_variance_ratio_
-    print(eigenvectors)
+    #print(eigenvectors)
     # Plot the eigenvectors (directions of maximum variance)
 
 def reversing_pca(X_trans,eigen_vectors):
@@ -119,6 +120,7 @@ if __name__=="__main__":
     y=np.array(target_df)
     le = LabelEncoder()
     y=le.fit_transform(y)
+    # print(y)
     cols=attribute_df.columns
     #  df_boxplot(attribute_df,cols)
     #  outliers removed from the data
