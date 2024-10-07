@@ -68,8 +68,8 @@ if __name__=='__main__':
     x_test=test_data.drop(columns=[test_data.columns[0],test_data.columns[len(test_data.columns)-1]],axis=1)
     y_test=test_data[test_data.columns[len(test_data.columns)-1]]
     # question 1 i->is implemented here
-    x_train_mean_sub,x_train_proj,eigen_values,eigen_vectors=pca_algo1(x_train,1)
-    x_test_arr,x_test_proj= apply_same_pca_test_data(x_train,x_test,1,eigen_vectors)     
+    x_train_mean_sub,x_train_proj,eigen_values,eigen_vectors=pca_algo1(x_train.copy(),1)
+    x_test_arr,x_test_proj= apply_same_pca_test_data(x_train.copy(),x_test.copy(),1,eigen_vectors)     
     # question 1 ii->part is implemented here 
     label_encoder = LabelEncoder()
     y_train_encoded=label_encoder.fit_transform(y_train)
@@ -82,9 +82,10 @@ if __name__=='__main__':
     y_predicted=y_predicted.astype(int)
     #  confusion matrix
     cm_model1=calculate_confusion_matrix(y_test_encoded,y_predicted,mapping)
+    print(cm_model1)
     #  calculation of accuracy
     score_model1=calculate_accuracy(cm_model1,y_predicted)
-    # print(accuracy_score)
+    print(score_model1)
 
     #  question 2  is implemented here 
     #  question 2 part->i
@@ -92,9 +93,9 @@ if __name__=='__main__':
     # question2 part->>ii
     y_predicted_mvn=test_bayes_classifier_multivariate(x_test,means_x_train_df,cov_x_train_df_class)
     cm_model2=calculate_confusion_matrix(y_test_encoded,y_predicted_mvn,mapping)
-    # print(cm_model2)
+    print(cm_model2)
     score_model2=calculate_accuracy(cm_model2,y_predicted_mvn)
-    
+    print(score_model2)
     #  question3 part -> a 
     print(score_model2-score_model1)
 
