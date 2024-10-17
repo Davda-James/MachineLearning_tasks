@@ -3,6 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 def find_weights(x,y):
     return np.dot(np.dot(np.linalg.inv(np.dot(x.T,x)),x.T),y)
+def calculate_rmse(y1,y2):  
+    target_range=max(y1)-min(y1)
+    rmse=np.sqrt(np.sum(((y1-y2)**2)/y1.shape[0]))   
+    return (1.0 - (rmse / target_range)) * 100
+def calculate_mape(y1,y2):
+    return 100*np.mean(abs(ytest_actual-ytest_predicted)/ytest_actual)
 
 if __name__=='__main__':
     dftrain=pd.read_csv('asianpaint_train.csv')
@@ -32,4 +38,10 @@ if __name__=='__main__':
     plt.tight_layout()
     plt.show()
 
+    rmse=calculate_rmse(ytest_actual,ytest_predicted)
+    print(rmse)
+    mape=calculate_mape(ytest_actual,ytest_predicted)
+    print(mape) 
+
+    
 
