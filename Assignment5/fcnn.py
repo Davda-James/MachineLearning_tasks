@@ -18,7 +18,7 @@ def load_image(path):
     images=[]
     labels=[]
     for i,class_name in enumerate(['0','1','2']):
-        class_path = os.path.join(train_dir, class_name)
+        class_path = os.path.join(path, class_name)
         if os.path.isdir(class_path):
             for img_name in os.listdir(class_path):
                 img_path=os.path.join(class_path,img_name)
