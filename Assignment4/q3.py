@@ -54,19 +54,19 @@ if __name__=='__main__':
     # print(train_rmse)
     # print(test_rmse)
     # #  ques-i  plotting the bar graph for train
-    # plt.xlabel("Degree")
-    # plt.ylabel("RMSE")
-    # plt.title("degree vs rmse")
-    # plt.bar(np.arange(2,6),train_rmse)
-    # plt.show()
+    plt.xlabel("Degree")
+    plt.ylabel("RMSE")
+    plt.title("degree vs rmse")
+    plt.bar(np.arange(2,6),train_rmse)
+    plt.show()
 
 
-    #  ques-ii  plotting the bar graph for train
-    # plt.xlabel("Degree")
-    # plt.ylabel("RMSE")
-    # plt.title("degree vs rmse")
-    # plt.bar(np.arange(2,6),test_rmse)
-    # plt.show()
+    #  ques-ii  plotting the bar graph for test
+    plt.xlabel("Degree")
+    plt.ylabel("RMSE")
+    plt.title("degree vs rmse")
+    plt.bar(np.arange(2,6),test_rmse)
+    plt.show()
     
     # ques-iii 
     sorted_indices = np.argsort(xtrain_arr[:, 0])

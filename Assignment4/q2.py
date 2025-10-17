@@ -34,6 +34,7 @@ def calculate_rmse(y1,y2):
     return np.sqrt(np.sum(((y1cp-y2cp)**2)/y1.shape[0]))    
 
 def plot_it(x,y,weights):
+    plt.scatter(x,y,color="yellow")
     plt.plot(x,x*weights[1]+weights[0],color ='red')
     plt.show()
 if __name__=='__main__':
@@ -48,13 +49,13 @@ if __name__=='__main__':
     weigths_with_single_feature=fit_line(xtrain[most_realted_feature],ytrain)
     y_predicted_test=predict_data(xtest[most_realted_feature],weigths_with_single_feature)
     y_predicted_train=predict_data(xtrain[most_realted_feature],weigths_with_single_feature)
-    # plot_it(xtrain[most_realted_feature],ytrain,weigths_with_single_feature)
+    plot_it(xtrain[most_realted_feature],ytrain,weigths_with_single_feature)
     # ii
     rmse_error_train=calculate_rmse(ytrain,y_predicted_train)
     # iii
     rmse_error_test=calculate_rmse(ytest,y_predicted_test)
-    # print(rmse_error_train)
-    # print(rmse_error_test)
+    print(rmse_error_train)
+    print(rmse_error_test)
     # iv
     plt.scatter(ytest,y_predicted_test,color='orange')
     plt.show()
